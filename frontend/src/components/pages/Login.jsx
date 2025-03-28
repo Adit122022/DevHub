@@ -1,26 +1,27 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { FcGoogle } from "react-icons/fc";
+import { useNavigate, useLocation } from "react-router-dom";
 
 const Login = () => {
-    useEffect(() => {
-        // Check if JWT token is present in URL
-        const urlParams = new URLSearchParams(window.location.search);
-        const token = urlParams.get("token");
-    
-        if (token) {
-          // Store token in localStorage
-          localStorage.setItem("token", token);
-          // Redirect to Dashboard"
-          window.location.href = "/dashboard";
-        }
-      }, []);
-    
-      const handleGoogleLogin = () => {
-        window.location.href = "http://localhost:5000/auth/google"; // Backend Auth Route
-      };
+  const navigate = useNavigate();
+  const location = useLocation();
+
+  useEffect(() => {
+    const params = new URLSearchParams(location.search);
+    const token = params.get("token");
+
+    if (token) {
+      localStorage.setItem("token", token); // Store JWT
+      navigate("/dashboard"); // Redirect to dashboard after login
+    }
+  }, [location, navigate]);
+
+  const handleGoogleLogin = () => {
+    window.location.href = "http://localhost:5000/auth/google"; // Redirects to Google OAuth
+  };
 
   return (
-    <div className=" flex flex-col gap-60 items-center justify-center h-full w-full bg-gradient-to-br from-gray-100 to-gray-300 dark:from-gray-900 dark:to-gray-800 p-8">
+    <div className=" flex flex-col gap-60 items-center justify-center h-screen w-screen bg-gradient-to-br from-gray-100 to-gray-300 dark:from-gray-900 dark:to-gray-800 p-8">
       {/* Title & Description */}
       <div className="text-center ">
         <h2 className="md:text-5xl text-2xl font-extrabold text-gray-800 dark:text-white">

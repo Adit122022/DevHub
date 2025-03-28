@@ -37,7 +37,7 @@ const authRoutes = require("./src/routes/auth");
 const userRoutes = require("./src/routes/user");
 
 app.use("/auth", authRoutes);
-app.use("/user", userRoutes);
+app.use("/api/user", userRoutes);
 
 // Connect to MongoDB
 mongoose.connect(process.env.MONGO_URI, { useNewUrlParser: true, useUnifiedTopology: true })
